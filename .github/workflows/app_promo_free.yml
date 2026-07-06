@@ -1,0 +1,62 @@
+name: App Promo (Free Mode)
+
+on:
+  workflow_dispatch:
+    inputs:
+      promo_angle:
+        description: "홍보 각도 (비우면 오늘 요일 자동)"
+        required: false
+        default: ""
+      release_title:
+        description: "릴리스 제목 (선택)"
+        required: false
+      release_body:
+        description: "릴리스 내용 (선택)"
+        required: false
+
+jobs:
+  promo-free:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Prepare config.json
+        run: |
+          cp promo_automation/config.example.json promo_automation/config.json
+          python - << 'PY'
+          import json
+          from pathlib import Path
+
+          config_path = Path("promo_automation/config.json")
+          config = json.loads(config_path.read_text(encoding="utf-8"))
+          config["workflow"]["mode"] = "free"
+          config["github"]["repo"] = "nyhoon/auto_marketing"
+          config["github"]["app_source_repo"] = "nyhoon/NeoFall"
+          config["github"]["release_title"] = """${{ github.event.inputs.release_title }}"""
+          config["github"]["release_body"] = """${{ github.event.inputs.release_body }}"""
+          config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
+          PY
+
+      - name: Run free promo pipeline
+        working-directory: promo_automation
+        run: |
+          ANGLE="${{ github.event.inputs.promo_angle }}"
+          if [ -n "$ANGLE" ]; then
+            python run_free.py --angle "$ANGLE"
+          else
+            python run_free.py
+          fi
+
+      - name: Upload promo posts
+        uses: actions/upload-artifact@v4
+        with:
+          name: promo-posts-free
+          path: |
+            generated/**

@@ -25,6 +25,7 @@
     "release_body": ""
   },
   "workflow": {
+    "mode": "free",
     "auto_publish": false,
     "require_approve_flag": true
   },

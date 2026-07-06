@@ -1,0 +1,2 @@
+# 무료 모드 — 외부 유료 패키지 불필요
+# export_variations / run_pipeline --use-variations 는 Python 표준 라이브러리만 사용

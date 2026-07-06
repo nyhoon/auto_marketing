@@ -102,9 +102,15 @@ def resolve_release_info(config: dict[str, Any]) -> ReleaseInfo:
         tag = get_optional_env_value("RELEASE_TAG")
 
     if not title and not body:
-        raise ValueError("릴리스 제목 또는 본문이 비어 있습니다.")
+        app_name = config.get("app", {}).get("name", "NeoFall")
+        title = f"{app_name} 홍보"
+        body = config.get("app", {}).get("description", "")
 
     return ReleaseInfo(tag=tag, title=title, body=body)
+
+
+def is_free_mode(config: dict[str, Any]) -> bool:
+    return config.get("workflow", {}).get("mode", "free") == "free"
 
 
 def create_output_bundle(config: dict[str, Any]) -> OutputBundle:

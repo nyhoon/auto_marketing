@@ -4,7 +4,14 @@ import argparse
 import sys
 
 from analyze_metrics import build_weekly_report
-from common import find_latest_output_dir, load_config, resolve_release_info, write_json
+from common import (
+    find_latest_output_dir,
+    is_free_mode,
+    is_platform_enabled,
+    load_config,
+    resolve_release_info,
+    write_json,
+)
 from generate_posts import generate_all_posts
 from n8n_bridge import notify_n8n
 from publish_posts import notify_review, publish_all
@@ -27,6 +34,10 @@ def run_analyze(config: dict, output_dir) -> None:
     write_json(output_dir / "kpi_report.json", report)
 
 
+def should_notify(config: dict) -> bool:
+    return is_platform_enabled(config, "discord_review_notify")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="앱 홍보 자동화 파이프라인")
     parser.add_argument("--generate", action="store_true", help="초안 생성")
@@ -44,6 +55,9 @@ def main() -> None:
         args.all = True
 
     config = load_config()
+
+    if is_free_mode(config):
+        args.use_variations = True
 
     output_bundle = None
     platform_list: list[str] = []
@@ -77,8 +91,11 @@ def main() -> None:
     release = resolve_release_info(config)
 
     if args.notify or args.all:
-        notify_review(config, output_bundle_dir, release, platform_list, dry_run=args.dry_run)
-        notify_n8n(output_bundle_dir, release, platform_list, config)
+        if should_notify(config):
+            notify_review(config, output_bundle_dir, release, platform_list, dry_run=args.dry_run)
+            notify_n8n(output_bundle_dir, release, platform_list, config)
+        else:
+            print("[INFO] 무료 모드: Discord/n8n 알림 비활성화 — generated/ 폴더에서 직접 확인")
 
     if args.publish:
         if not args.approve and not args.dry_run:
