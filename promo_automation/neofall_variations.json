@@ -1,0 +1,520 @@
+{
+  "app": "NeoFall",
+  "angles": {
+    "ranking_challenge": "랭킹 도전·Top 100 경쟁",
+    "user_review": "유저 플레이 후기 스타일",
+    "fail_moment": "실패 순간·밈",
+    "gyro_vs_touch": "자이로 vs 터치 대결",
+    "hazard_gamble": "해저드 ×1.5 도박",
+    "depth_milestone": "500m·1000m 깊이 도전",
+    "commute_game": "출퇴근 5분 게임",
+    "cosmetic": "볼 스킨·꼬리 꾸미기",
+    "dev_story": "개발 비하인드",
+    "question": "질문형·토론 유도",
+    "newbie_tip": "신규 유저 팁",
+    "neon_aesthetic": "네온 비주얼·분위기",
+    "platform_guide": "발판 종류 가이드",
+    "event_challenge": "커뮤니티 챌린지"
+  },
+  "rotation": {
+    "weekday_order": [
+      "ranking_challenge",
+      "user_review",
+      "hazard_gamble",
+      "gyro_vs_touch",
+      "dev_story",
+      "fail_moment",
+      "event_challenge"
+    ],
+    "note": "같은 각도를 2주 연속 쓰지 말 것. 플랫폼마다 문구는 반드시 다르게."
+  },
+  "variations": {
+    "google_play": [
+      {
+        "id": "gp_ranking_v1",
+        "angle": "ranking_challenge",
+        "lines": [
+          "NeoFall 랭킹 시즌 오픈!",
+          "터치 모드·자이로 모드 Top 100이 따로 집계됩니다.",
+          "같은 게임, 다른 실력 증명 — 당신은 어느 쪽 상위권?",
+          "Google 로그인 후 전 세계 플레이어와 점수 경쟁.",
+          "지금 도전하고 닉네임을 랭킹에 올려보세요."
+        ]
+      },
+      {
+        "id": "gp_user_review_v1",
+        "angle": "user_review",
+        "lines": [
+          "많은 플레이어가 NeoFall을 이렇게 평가합니다.",
+          "\"출근길 한 판인데 500m 넘기기가 이렇게 빡세?\"",
+          "\"자이로 모드 해보니까 완전 다른 게임이네\"",
+          "\"해저드 먹었다가 바로 죽었는데 점수는 확 오름 ㅋㅋ\"",
+          "직접 플레이하고 나만의 한 줄 후기를 남겨보세요."
+        ]
+      },
+      {
+        "id": "gp_hazard_v1",
+        "angle": "hazard_gamble",
+        "lines": [
+          "해저드 아이템 업데이트 안내",
+          "화면 반전, 속도 증가 — 난이도가 확 올라갑니다.",
+          "대신 점수 ×1.5! 리스크를 감수할수록 하이스코어 가능.",
+          "무적·실드 아이템과 조합하면 역전도 가능해요.",
+          "안전하게 갈지, 도박할지 — 선택은 당신의 몫."
+        ]
+      },
+      {
+        "id": "gp_cosmetic_v1",
+        "angle": "cosmetic",
+        "lines": [
+          "NeoFall 꾸미기 상점 오픈",
+          "볼 스킨 14종, 꼬리 6종 — 플레이로 모은 코인으로 해금.",
+          "회원가입 시 1,000코인 보너스 지급.",
+          "랭킹은 실력, 스킨은 개성 — 둘 다 챙기세요.",
+          "가장 마음에 드는 조합을 자랑해 보세요."
+        ]
+      }
+    ],
+    "reddit": [
+      {
+        "id": "rd_ranking_v1",
+        "angle": "ranking_challenge",
+        "subreddit": "IndieDev",
+        "lines": [
+          "NeoFall update: separate touch vs gyro leaderboards (Top 100 each).",
+          "Wanted fair competition — gyro mains kept losing to touch on one board.",
+          "Now you can actually prove which control style is harder.",
+          "Curious: which mode do you think will have higher scores?",
+          "Would love testers to break the rankings."
+        ]
+      },
+      {
+        "id": "rd_user_review_v1",
+        "angle": "user_review",
+        "subreddit": "playmygame",
+        "lines": [
+          "A player told me: \"I said one more try at 11pm. It was 1am.\"",
+          "NeoFall is a neon endless-fall arcade — red = death, green = bounce.",
+          "Hazard pickups flip the screen but give ×1.5 score.",
+          "Touch or gyro, your choice. Free on Android.",
+          "What's the deepest you've fallen?"
+        ]
+      },
+      {
+        "id": "rd_dev_v1",
+        "angle": "dev_story",
+        "subreddit": "androiddev",
+        "lines": [
+          "Shipped NeoFall: Flutter + Flame + Forge2D endless-fall game.",
+          "Biggest UX bet: guest play first, Google login later with record merge.",
+          "Supabase for dual leaderboards (touch/gyro) was trickier than physics.",
+          "Neon UI runs on 3 graphics tiers for low-end devices.",
+          "AMA about the stack if useful."
+        ]
+      },
+      {
+        "id": "rd_fail_v1",
+        "angle": "fail_moment",
+        "subreddit": "IndieDev",
+        "lines": [
+          "Designed NeoFall's yellow platforms to crack on contact.",
+          "Watchtesters: \"I bounced perfectly then the floor vanished.\"",
+          "That's the point — risk/reward on every landing.",
+          "500m+ moving platforms make it worse (better?).",
+          "Feedback on unfair deaths vs fun challenge?"
+        ]
+      },
+      {
+        "id": "rd_question_v1",
+        "angle": "question",
+        "subreddit": "SideProject",
+        "lines": [
+          "Working on NeoFall — neon ball falling through platform patterns.",
+          "Debate on my team: should hazard items be opt-in or on the path?",
+          "Currently they're risky but ×1.5 score — most players grab them.",
+          "Indie devs: do you reward greed or punish it?",
+          "Playtesters welcome."
+        ]
+      }
+    ],
+    "x": [
+      {
+        "id": "x_ranking_v1",
+        "angle": "ranking_challenge",
+        "lines": [
+          "NeoFall 랭킹 도전 🔥",
+          "터치 Top 100 / 자이로 Top 100 따로 있습니다",
+          "어느 쪽이 더 상위권일까요?",
+          "내 기록: ___m — 이겨보실 분",
+          "#NeoFall #하이스코어"
+        ]
+      },
+      {
+        "id": "x_ranking_v2",
+        "angle": "ranking_challenge",
+        "lines": [
+          "이번 주 NeoFall 챌린지",
+          "500m 넘기면 인정",
+          "1000m 넘기면 존경",
+          "스크린샷 인증 환영",
+          "당신의 깊이는?"
+        ]
+      },
+      {
+        "id": "x_review_v1",
+        "angle": "user_review",
+        "lines": [
+          "\"그냥 한 판만\" 하다가 40분 지난 사람 손 ✋",
+          "NeoFall — 네온 무한 낙하",
+          "빨간 바닥만 피하면 된다고 생각했는데",
+          "500m부터 바닥이 움직임",
+          "나만 그런 거 아니지?"
+        ]
+      },
+      {
+        "id": "x_review_v2",
+        "angle": "user_review",
+        "lines": [
+          "친구: 이거 뭐냐",
+          "나: NeoFall. 낙하 게임",
+          "친구: (5분 후) 자이로가 더 어렵네",
+          "나: 랭킹도 따로야",
+          "친구: ...설치함"
+        ]
+      },
+      {
+        "id": "x_hazard_v1",
+        "angle": "hazard_gamble",
+        "lines": [
+          "해저드 아이템 먹으면",
+          "화면 뒤집히고 속도 올라가고",
+          "점수는 1.5배",
+          "NeoFall — 욕하면서 또 함",
+          "감당 가능?"
+        ]
+      },
+      {
+        "id": "x_gyro_v1",
+        "angle": "gyro_vs_touch",
+        "lines": [
+          "NeoFall 터치파 vs 자이로파",
+          "터치: 정밀함의 미학",
+          "자이로: 손목 스포츠",
+          "랭킹 따로 있으니 말로만 하지 말고 증명",
+          "어느 쪽?"
+        ]
+      },
+      {
+        "id": "x_commute_v1",
+        "angle": "commute_game",
+        "lines": [
+          "지하철 5정거장 = NeoFall 3판",
+          "한 판 1~2분, 재시작 바로 됨",
+          "게스트로 바로 시작",
+          "내릴 때까지 깊이 ___m",
+          "출퇴근 게임 찾는 사람에게"
+        ]
+      },
+      {
+        "id": "x_fail_v1",
+        "angle": "fail_moment",
+        "lines": [
+          "노란 발판 밟았더니",
+          "깨지면서 떨어짐",
+          "GAME OVER",
+          "NeoFall이 나한테 한 말:",
+          "\"다시 해\"",
+          "그래서 다시 함"
+        ]
+      },
+      {
+        "id": "x_neon_v1",
+        "angle": "neon_aesthetic",
+        "lines": [
+          "어두운 배경에 네온만 켜진 느낌",
+          "떨어질수록 속도선 늘어남",
+          "BGM도 빨라짐",
+          "NeoFall — 눈이 즐거운 낙하",
+          "영상으로 보는 게 더 낫다"
+        ]
+      },
+      {
+        "id": "x_event_v1",
+        "angle": "event_challenge",
+        "lines": [
+          "🏆 NeoFall 깊이 챌린지",
+          "규칙: 스크린샷 + 깊이(m) 댓글",
+          "이번 주 목표 800m",
+          "달성자 중 추첨으로 ... (소소한 이벤트)",
+          "참여 GO"
+        ]
+      }
+    ],
+    "threads": [
+      {
+        "id": "th_ranking_v1",
+        "angle": "ranking_challenge",
+        "lines": [
+          "NeoFall 랭킹 보는데 터치 1위랑 자이로 1위 깊이가 다르더라",
+          "같은 게임인데 조작만 바꿔도 난이도가 완전 달라짐",
+          "여러분은 몇 m까지 가봤어요?",
+          "랭킹 올라간 사람 있으면 공유해주세요",
+          "궁금함"
+        ]
+      },
+      {
+        "id": "th_review_v1",
+        "angle": "user_review",
+        "lines": [
+          "NeoFall 해본 사람? 솔직 후기 궁금해요",
+          "저는 \"한 판만\"이 없어서 출근 지각할 뻔",
+          "해저드 먹었다가 죽으면 화나는데 점수는 오름",
+          "이 감정 아는 사람?",
+          "후기 달아주세요"
+        ]
+      },
+      {
+        "id": "th_hazard_v1",
+        "angle": "hazard_gamble",
+        "lines": [
+          "점수 올리려면 해저드 아이템 먹어야 할까요?",
+          "NeoFall은 먹으면 난이도 확 올라가는데 ×1.5 점수",
+          "안전하게만 가면 랭킹 한계가 있을 것 같아서",
+          "여러분은 도박파? 안정파?",
+          "전략 공유해주세요"
+        ]
+      },
+      {
+        "id": "th_gyro_v1",
+        "angle": "gyro_vs_touch",
+        "lines": [
+          "무한 낙하 게임 NeoFall에서",
+          "터치랑 자이로 중 뭐가 더 어렵다고 느끼세요?",
+          "저는 자이로가 손목 아프지만 더 몰입됨",
+          "랭킹도 분리돼 있어서 공정하게 겨룸",
+          "투표 개념으로 댓글 부탁해요"
+        ]
+      },
+      {
+        "id": "th_newbie_v1",
+        "angle": "newbie_tip",
+        "lines": [
+          "NeoFall 처음 하는 사람 팁",
+          "빨간 발판 = 무조건 피하기",
+          "초록 = 튕겨서 살기 좋음",
+          "노란 = 밟으면 깨짐 (타이밍)",
+          "이것만 알아도 200m는 감"
+        ]
+      }
+    ],
+    "youtube_shorts": [
+      {
+        "id": "yt_ranking_v1",
+        "angle": "ranking_challenge",
+        "lines": [
+          "[0초] NeoFall 랭킹 1위 도전",
+          "[1초] 700m... 800m...",
+          "[2초] 빨간 발판!!!",
+          "[3초] GAME OVER — 아쉽",
+          "[자막] 당신은 몇 m? 댓글로 인증"
+        ]
+      },
+      {
+        "id": "yt_review_v1",
+        "angle": "user_review",
+        "lines": [
+          "[0초] \"한 판만\" 했는데",
+          "[1초] 30분 지남",
+          "[2초] NeoFall 네온 낙하",
+          "[3초] 해저드 먹으면 점수 1.5배",
+          "[자막] 나만 중독? 솔직히 말해줘"
+        ]
+      },
+      {
+        "id": "yt_hazard_v1",
+        "angle": "hazard_gamble",
+        "lines": [
+          "[0초] 점수 올리려고 해저드 먹음",
+          "[1초] 화면 뒤집힘",
+          "[2초] 속도 미쳤음",
+          "[3초] ...살았다 / 죽었다",
+          "[자막] NeoFall — 도박은 즐거워"
+        ]
+      },
+      {
+        "id": "yt_platform_v1",
+        "angle": "platform_guide",
+        "lines": [
+          "[0초] 빨강=죽음 / 파랑=안전",
+          "[1초] 초록=튕김 / 노랑=깨짐",
+          "[2초] 보라=점멸 주의",
+          "[3초] 500m부터 바닥이 움직임",
+          "[자막] NeoFall 발판 가이드 — 저장해둬"
+        ]
+      },
+      {
+        "id": "yt_gyro_v1",
+        "angle": "gyro_vs_touch",
+        "lines": [
+          "[0초] 터치로 600m 감",
+          "[1초] 자이로로 바꿈",
+          "[2초] 완전 다른 게임",
+          "[3초] 손목... 하지만 재밌음",
+          "[자막] NeoFall — 당신은 어느 파?"
+        ]
+      }
+    ],
+    "tiktok": [
+      {
+        "id": "tt_ranking_v1",
+        "angle": "ranking_challenge",
+        "lines": [
+          "NeoFall 1000m 가는 사람 있음?",
+          "나는 743m에서 빨간 바닥에 죽음",
+          "터치 랭킹이랑 자이로 랭킹 따로 있음",
+          "이겨보자",
+          "#NeoFall #하이스코어 #챌린지"
+        ]
+      },
+      {
+        "id": "tt_review_v1",
+        "angle": "user_review",
+        "lines": [
+          "이 게임 하지 마세요",
+          "한 판만 한다고 했는데",
+          "1시간 지남",
+          "NeoFall 네온 낙하",
+          "#중독 #모바일게임"
+        ]
+      },
+      {
+        "id": "tt_fail_v1",
+        "angle": "fail_moment",
+        "lines": [
+          "노란 바닥 믿었는데",
+          "밟자마자 깨짐",
+          "내 점수...",
+          "NeoFall",
+          "#게임실수 #웃픈"
+        ]
+      },
+      {
+        "id": "tt_hazard_v1",
+        "angle": "hazard_gamble",
+        "lines": [
+          "해저드 먹으면 점수 1.5배래서 먹음",
+          "화면 거꾸로 됨",
+          "심장 터질 뻔",
+          "근데 점수는 진짜 오름",
+          "#NeoFall #리스크"
+        ]
+      },
+      {
+        "id": "tt_neon_v1",
+        "angle": "neon_aesthetic",
+        "lines": [
+          "네온 게임 좋아하면 이거",
+          "떨어질수록 빨라지고",
+          "BGM도 빨라짐",
+          "NeoFall",
+          "#네온 #인디게임 #aes"
+        ]
+      }
+    ],
+    "discord": [
+      {
+        "id": "dc_ranking_v1",
+        "angle": "ranking_challenge",
+        "lines": [
+          "🏆 주간 깊이 챌린지",
+          "이번 주 목표: 600m 돌파",
+          "스크린샷 + 깊이(m) 댓글로 인증",
+          "터치/자이로 구분해서 올려주세요",
+          "현재 1위: ___m — 누가 이길까?"
+        ]
+      },
+      {
+        "id": "dc_review_v1",
+        "angle": "user_review",
+        "lines": [
+          "오늘 NeoFall 처음 해본 사람?",
+          "첫인상 한 줄로 남겨주세요",
+          "\"생각보다 어렵다\" / \"네온 예쁘다\" 뭐든 OK",
+          "모아서 다음 업데이트에 반영할게요",
+          "솔직 후기 환영 👇"
+        ]
+      },
+      {
+        "id": "dc_gyro_v1",
+        "angle": "gyro_vs_touch",
+        "lines": [
+          "터치파 vs 자이로파 투표 🗳️",
+          "NeoFall 랭킹도 모드별로 나뉘어 있어요",
+          "자이로가 더 어렵다 / 터치가 더 어렵다",
+          "댓글로 편 가르쳐주세요",
+          "다음 주에 결과 공유"
+        ]
+      },
+      {
+        "id": "dc_cosmetic_v1",
+        "angle": "cosmetic",
+        "lines": [
+          "🎨 나만의 NeoFall 룩 자랑",
+          "볼 스킨 + 꼬리 조합 스크린샷 올려주세요",
+          "제일 예쁜 조합 골라서 피처링",
+          "상점 코인은 플레이로 모을 수 있어요",
+          "#꾸미기 채널에 올려주세요"
+        ]
+      },
+      {
+        "id": "dc_tip_v1",
+        "angle": "newbie_tip",
+        "lines": [
+          "💡 NeoFall 초보 팁",
+          "초록 발판 = 튕겨서 살기 쉬움",
+          "노란 = 한 번만 밟을 수 있음",
+          "500m 넘으면 바닥이 움직이기 시작",
+          "더 좋은 팁 있으면 공유해주세요"
+        ]
+      }
+    ],
+    "blog": [
+      {
+        "id": "bl_ranking_v1",
+        "angle": "ranking_challenge",
+        "title": "NeoFall 랭킹 공략 — 터치 vs 자이로, 어느 쪽이 유리할까?",
+        "lines": [
+          "NeoFall은 조작 모드별로 Top 100 랭킹이 분리되어 있습니다.",
+          "터치는 정밀 회피에, 자이로는 빠른 반응에 강점이 있습니다.",
+          "해저드 아이템(×1.5)은 고득점 필수지만 낙하 속도도 올라갑니다.",
+          "500m 이후 이동 발판이 등장하면 패턴 읽기가 중요해집니다.",
+          "당신의 기록을 댓글로 공유해 보세요."
+        ]
+      },
+      {
+        "id": "bl_review_v1",
+        "angle": "user_review",
+        "title": "NeoFall 플레이 후기 — \"한 판만\"이 없는 네온 낙하 게임",
+        "lines": [
+          "짧은 세션을 원했지만 30분이 훌쩍 지나간 플레이 경험.",
+          "빨간 발판 회피는 기본, 노란 균열 발판은 타이밍이 핵심입니다.",
+          "해저드 아이템을 먹으면 화면이 뒤집히지만 점수는 1.5배.",
+          "게스트로 바로 시작하고, 나중에 Google 로그인으로 기록 연동 가능.",
+          "비슷한 경험 있으신 분?"
+        ]
+      },
+      {
+        "id": "bl_commute_v1",
+        "angle": "commute_game",
+        "title": "출퇴근길 5분 게임 추천 — NeoFall",
+        "lines": [
+          "지하철·버스 안에서 한 판씩 즐기기 좋은 무한 낙하 액션.",
+          "한 판 1~2분, 재시작이 빨라 끊기기 좋습니다.",
+          "터치 한 손 조작 또는 자이로 중 선택.",
+          "네온 비주얼이라 짧은 시간에도 몰입감이 있습니다.",
+          "다른 출퇴근 게임 추천도 댓글로 알려주세요."
+        ]
+      }
+    ]
+  }
+}

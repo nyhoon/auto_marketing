@@ -1,0 +1,108 @@
+{
+  "app": {
+    "name": "NeoFall",
+    "description": "네온 스타일 무한 낙하 액션 게임. 터치·자이로 조작, 발판 회피, 랭킹·코스메틱 상점.",
+    "play_store_url": "https://play.google.com/store/apps/details?id=com.neuralagent.neofall",
+    "website_url": "https://nyhoon.github.io/NeoFallSite/",
+    "promo_angle": "",
+    "keywords": [
+      "무한 낙하",
+      "네온 게임",
+      "인디 게임",
+      "캐주얼 액션",
+      "하이스코어"
+    ]
+  },
+  "openai": {
+    "api_key_env": "OPENAI_API_KEY",
+    "model": "gpt-4.1-mini"
+  },
+  "github": {
+    "repo": "nyhoon/auto_marketing",
+    "app_source_repo": "nyhoon/NeoFall",
+    "release_tag": "",
+    "release_title": "",
+    "release_body": ""
+  },
+  "workflow": {
+    "auto_publish": false,
+    "require_approve_flag": true
+  },
+  "n8n": {
+    "enabled": false,
+    "webhook_url_env": "N8N_WEBHOOK_URL"
+  },
+  "platforms": {
+    "google_play": {
+      "enabled": true,
+      "track": "production",
+      "mode": "manual_copy",
+      "aso": {
+        "title_max_chars": 30,
+        "short_desc_max_chars": 80,
+        "keyword_count": 5,
+        "screenshot_count": 8
+      }
+    },
+    "reddit": {
+      "enabled": false,
+      "client_id_env": "REDDIT_CLIENT_ID",
+      "client_secret_env": "REDDIT_CLIENT_SECRET",
+      "username_env": "REDDIT_USERNAME",
+      "password_env": "REDDIT_PASSWORD",
+      "user_agent": "promo-automation/1.0 by your_username",
+      "min_account_age_days": 14,
+      "account_created_date": "",
+      "max_posts_per_day": 1,
+      "subreddits": [
+        "androiddev",
+        "IndieDev"
+      ]
+    },
+    "x": {
+      "enabled": false,
+      "api_key_env": "X_API_KEY",
+      "api_secret_env": "X_API_SECRET",
+      "access_token_env": "X_ACCESS_TOKEN",
+      "access_token_secret_env": "X_ACCESS_TOKEN_SECRET",
+      "max_posts_per_day": 3
+    },
+    "threads": {
+      "enabled": true,
+      "mode": "manual_copy"
+    },
+    "youtube_shorts": {
+      "enabled": true,
+      "mode": "script_only"
+    },
+    "tiktok": {
+      "enabled": true,
+      "mode": "script_only"
+    },
+    "discord": {
+      "enabled": false,
+      "webhook_url_env": "DISCORD_WEBHOOK_URL"
+    },
+    "blog": {
+      "enabled": false,
+      "type": "markdown_only",
+      "api_base_url": "https://your-blog.com",
+      "token_env": "BLOG_API_TOKEN",
+      "post_status": "draft"
+    },
+    "discord_review_notify": {
+      "enabled": false,
+      "webhook_url_env": "DISCORD_WEBHOOK_URL"
+    }
+  },
+  "kpi": {
+    "impressions": 0,
+    "click_rate": 0,
+    "store_visits": 0,
+    "installs": 0,
+    "retention_day7": 0
+  },
+  "output": {
+    "base_dir": "generated"
+  }
+}

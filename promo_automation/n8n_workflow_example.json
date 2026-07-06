@@ -1,0 +1,76 @@
+{
+  "name": "App Promo Review & Publish",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "app-promo-review",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "name": "Webhook: Drafts Ready",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "channel": "={{$env.DISCORD_CHANNEL_ID}}",
+        "text": "📣 홍보 초안 생성 완료\n릴리스: {{$json.release_title}}\n플랫폼: {{$json.platforms.join(', ')}}\n\n검토 후 승인해주세요."
+      },
+      "name": "Discord: Review Request",
+      "type": "n8n-nodes-base.discord",
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.approved}}",
+              "value2": "true"
+            }
+          ]
+        }
+      },
+      "name": "IF: Approved?",
+      "type": "n8n-nodes-base.if",
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/OWNER/REPO/dispatches",
+        "authentication": "genericCredentialType",
+        "method": "POST",
+        "jsonParameters": true,
+        "options": {},
+        "bodyParametersJson": "={\"event_type\": \"promo_publish_approved\"}"
+      },
+      "name": "GitHub: Trigger Publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [1000, 200]
+    },
+    {
+      "parameters": {
+        "channel": "={{$env.DISCORD_CHANNEL_ID}}",
+        "text": "❌ 홍보 초안 거부됨. 수정 후 다시 실행해주세요."
+      },
+      "name": "Discord: Rejected",
+      "type": "n8n-nodes-base.discord",
+      "position": [1000, 400]
+    }
+  ],
+  "connections": {
+    "Webhook: Drafts Ready": {
+      "main": [[{"node": "Discord: Review Request", "type": "main", "index": 0}]]
+    },
+    "Discord: Review Request": {
+      "main": [[{"node": "IF: Approved?", "type": "main", "index": 0}]]
+    },
+    "IF: Approved?": {
+      "main": [
+        [{"node": "GitHub: Trigger Publish", "type": "main", "index": 0}],
+        [{"node": "Discord: Rejected", "type": "main", "index": 0}]
+      ]
+    }
+  }
+}

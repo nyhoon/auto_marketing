@@ -1,0 +1,8 @@
+generated/
+.env
+promo_automation/.env
+promo_automation/config.json
+promo_automation/.publish_log.json
+__pycache__/
+*.pyc
+.Python

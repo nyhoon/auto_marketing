@@ -1,0 +1,110 @@
+name: App Promo Automation
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_title:
+        description: "Release title (optional override)"
+        required: false
+      release_body:
+        description: "Release body/notes (optional override)"
+        required: false
+      run_publish:
+        description: "Publish after generation (requires secrets)"
+        required: false
+        default: "false"
+      dry_run:
+        description: "Dry run without real API publish"
+        required: false
+        default: "true"
+
+jobs:
+  promo-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r promo_automation/requirements.txt
+
+      - name: Prepare config.json
+        run: |
+          cp promo_automation/config.example.json promo_automation/config.json
+          python - << 'PY'
+          import json
+          from pathlib import Path
+
+          config_path = Path("promo_automation/config.json")
+          config = json.loads(config_path.read_text(encoding="utf-8"))
+
+          event_name = "${{ github.event_name }}"
+          if event_name == "release":
+              config["github"]["release_tag"] = "${{ github.event.release.tag_name }}"
+              config["github"]["release_title"] = "${{ github.event.release.name }}"
+              config["github"]["release_body"] = """${{ github.event.release.body }}"""
+          else:
+              config["github"]["release_title"] = "${{ github.event.inputs.release_title }}"
+              config["github"]["release_body"] = """${{ github.event.inputs.release_body }}"""
+
+          config["github"]["repo"] = "nyhoon/auto_marketing"
+          config["github"]["app_source_repo"] = "nyhoon/NeoFall"
+          config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
+          PY
+
+      - name: Run promo pipeline
+        working-directory: promo_automation
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          BLOG_API_TOKEN: ${{ secrets.BLOG_API_TOKEN }}
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+        run: |
+          python run_pipeline.py --all
+
+      - name: Publish approved channels
+        if: ${{ github.event.inputs.run_publish == 'true' }}
+        working-directory: promo_automation
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          BLOG_API_TOKEN: ${{ secrets.BLOG_API_TOKEN }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            python run_pipeline.py --publish --approve --dry-run
+          else
+            python run_pipeline.py --publish --approve
+          fi
+
+      - name: Upload generated posts
+        uses: actions/upload-artifact@v4
+        with:
+          name: promo-posts
+          path: |
+            generated/**
