@@ -8,7 +8,7 @@ from urllib.parse import urljoin
 
 import requests
 
-from common import get_env_value, get_optional_env_value
+from common import get_env_value, get_optional_env_value, has_platform_credentials
 
 
 @dataclass(frozen=True)
@@ -203,6 +203,13 @@ def publish_platform(
             platform=platform,
             success=False,
             message="자동 게시를 지원하지 않는 플랫폼입니다. 수동 게시가 필요합니다.",
+        )
+
+    if not has_platform_credentials(config, platform):
+        return PublishResult(
+            platform=platform,
+            success=False,
+            message="계정 정보 미설정 — .env 또는 GitHub Secrets를 확인하세요.",
         )
 
     return publisher.publish(content, config)

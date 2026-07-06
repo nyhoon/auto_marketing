@@ -1,2 +1,3 @@
-# 무료 모드 — 외부 유료 패키지 불필요
-# export_variations / run_pipeline --use-variations 는 Python 표준 라이브러리만 사용
+requests>=2.32.0
+praw>=7.7.0
+python-dotenv>=1.0.0

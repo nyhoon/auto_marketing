@@ -26,7 +26,8 @@
   },
   "workflow": {
     "mode": "free",
-    "auto_publish": false,
+    "auto_publish": true,
+    "auto_publish_platforms": ["discord", "reddit"],
     "require_approve_flag": true
   },
   "n8n": {
@@ -46,7 +47,7 @@
       }
     },
     "reddit": {
-      "enabled": false,
+      "enabled": true,
       "client_id_env": "REDDIT_CLIENT_ID",
       "client_secret_env": "REDDIT_CLIENT_SECRET",
       "username_env": "REDDIT_USERNAME",
@@ -81,7 +82,7 @@
       "mode": "script_only"
     },
     "discord": {
-      "enabled": false,
+      "enabled": true,
       "webhook_url_env": "DISCORD_WEBHOOK_URL"
     },
     "blog": {

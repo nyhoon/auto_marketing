@@ -7,6 +7,8 @@ from pathlib import Path
 from common import (
     PUBLISHABLE_PLATFORMS,
     find_latest_output_dir,
+    get_auto_publish_platforms,
+    has_platform_credentials,
     is_platform_enabled,
     load_config,
     read_platform_content,
@@ -38,17 +40,34 @@ def build_review_message(output_dir, release, platform_list: list[str]) -> str:
     return "\n".join(lines)
 
 
-def publish_all(config: dict, output_dir, dry_run: bool) -> list:
+def publish_all(config: dict, output_dir, dry_run: bool, platform_filter: list[str] | None = None) -> list:
     results = []
     all_contents: dict[str, str] = {}
 
-    for platform in PUBLISHABLE_PLATFORMS:
-        if not is_platform_enabled(config, platform):
-            continue
-        all_contents[platform] = read_platform_content(output_dir, platform)
+    target_platforms = platform_filter or [
+        platform
+        for platform in PUBLISHABLE_PLATFORMS
+        if is_platform_enabled(config, platform)
+    ]
 
-    for platform in PUBLISHABLE_PLATFORMS:
+    for platform in target_platforms:
+        try:
+            all_contents[platform] = read_platform_content(output_dir, platform)
+        except FileNotFoundError:
+            print(f"[SKIP] {platform}: 초안 파일 없음")
+
+    for platform in target_platforms:
         if platform not in all_contents:
+            continue
+
+        if not has_platform_credentials(config, platform):
+            from publishers import PublishResult
+            results.append(PublishResult(
+                platform=platform,
+                success=False,
+                message="계정 미설정 — .env에 키 추가 후 다시 실행",
+            ))
+            print(f"[SKIP] {platform}: 계정 정보 없음")
             continue
 
         content = all_contents[platform]

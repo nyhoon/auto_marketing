@@ -152,3 +152,45 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
 def is_platform_enabled(config: dict[str, Any], platform: str) -> bool:
     platform_config = config["platforms"].get(platform, {})
     return bool(platform_config.get("enabled"))
+
+
+def has_platform_credentials(config: dict[str, Any], platform: str) -> bool:
+    platform_config = config["platforms"].get(platform, {})
+    credential_map = {
+        "discord": [platform_config.get("webhook_url_env", "DISCORD_WEBHOOK_URL")],
+        "discord_review_notify": [
+            platform_config.get("webhook_url_env", "DISCORD_WEBHOOK_URL")
+        ],
+        "reddit": [
+            platform_config.get("client_id_env", "REDDIT_CLIENT_ID"),
+            platform_config.get("client_secret_env", "REDDIT_CLIENT_SECRET"),
+            platform_config.get("username_env", "REDDIT_USERNAME"),
+            platform_config.get("password_env", "REDDIT_PASSWORD"),
+        ],
+        "x": [
+            platform_config.get("api_key_env", "X_API_KEY"),
+            platform_config.get("api_secret_env", "X_API_SECRET"),
+            platform_config.get("access_token_env", "X_ACCESS_TOKEN"),
+            platform_config.get("access_token_secret_env", "X_ACCESS_TOKEN_SECRET"),
+        ],
+        "blog": [platform_config.get("token_env", "BLOG_API_TOKEN")],
+    }
+
+    env_names = credential_map.get(platform, [])
+    if not env_names:
+        return False
+
+    return all(get_optional_env_value(name) for name in env_names)
+
+
+def get_auto_publish_platforms(config: dict[str, Any]) -> list[str]:
+    workflow = config.get("workflow", {})
+    if not workflow.get("auto_publish", False):
+        return []
+
+    configured = workflow.get("auto_publish_platforms", ["discord", "reddit"])
+    return [
+        platform
+        for platform in configured
+        if is_platform_enabled(config, platform) and has_platform_credentials(config, platform)
+    ]

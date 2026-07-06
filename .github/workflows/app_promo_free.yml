@@ -7,6 +7,10 @@ on:
         description: "홍보 각도 (비우면 오늘 요일 자동)"
         required: false
         default: ""
+      auto_publish:
+        description: "Discord/Reddit 자동 게시"
+        required: false
+        default: "true"
       release_title:
         description: "릴리스 제목 (선택)"
         required: false
@@ -27,6 +31,11 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r promo_automation/requirements-free.txt
+
       - name: Prepare config.json
         run: |
           cp promo_automation/config.example.json promo_automation/config.json
@@ -37,6 +46,7 @@ jobs:
           config_path = Path("promo_automation/config.json")
           config = json.loads(config_path.read_text(encoding="utf-8"))
           config["workflow"]["mode"] = "free"
+          config["workflow"]["auto_publish"] = "${{ github.event.inputs.auto_publish }}" == "true"
           config["github"]["repo"] = "nyhoon/auto_marketing"
           config["github"]["app_source_repo"] = "nyhoon/NeoFall"
           config["github"]["release_title"] = """${{ github.event.inputs.release_title }}"""
@@ -46,12 +56,22 @@ jobs:
 
       - name: Run free promo pipeline
         working-directory: promo_automation
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
         run: |
           ANGLE="${{ github.event.inputs.promo_angle }}"
+          PUBLISH_FLAG=""
+          if [ "${{ github.event.inputs.auto_publish }}" = "true" ]; then
+            PUBLISH_FLAG="--publish --approve"
+          fi
           if [ -n "$ANGLE" ]; then
-            python run_free.py --angle "$ANGLE"
+            python run_free.py --angle "$ANGLE" $PUBLISH_FLAG
           else
-            python run_free.py
+            python run_free.py $PUBLISH_FLAG
           fi
 
       - name: Upload promo posts
